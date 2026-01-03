@@ -6,9 +6,12 @@ struct smartPtr {
             ((char*)p)[i] = o;
         }
     }
+
     public:
-    T* ptr = NULL;
-    unsigned int size = 0;
+
+    T* ptr = nullptr; // pointer to data
+    unsigned int size = 0; // count of elements!
+
     smartPtr(unsigned int sz) {
         ptr = new T[sz];
         size = sz;
@@ -16,11 +19,19 @@ struct smartPtr {
     ~smartPtr() {
         delete[] ptr;
     }
+
     T* get() {
         return (T*)ptr;
     }
     void erase() {
         unsigned int sizeInBytes = size * sizeof(T);
         memset(ptr, 0, sizeInBytes);
+    }
+    unsigned int getSizeBytes() {
+        return sizeof(T) * size;
+    }
+
+    T& operator[](unsigned int index) {
+        return ptr[index];
     }
 };
